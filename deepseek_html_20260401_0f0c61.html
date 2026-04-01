@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FreeLAN — Digital Marketing & Lead Generation</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0d1b2e;--navy2:#162338;--navy3:#1e2f47;
+  --gold:#c9973a;--gold-light:#e8b96a;--gold-pale:#f5e6c8;
+  --white:#faf9f6;--off:#f0ede6;--text:#1a1a2e;
+  --muted:#6b7280;--muted2:#9ca3af;
+  --border:#e5e0d8;
+  --shadow:0 4px 24px rgba(13,27,46,0.10);
+  --shadow-md:0 8px 40px rgba(13,27,46,0.14);
+  --shadow-lg:0 20px 60px rgba(13,27,46,0.18);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--white);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;line-height:1.65;overflow-x:hidden;}
+a{text-decoration:none;}
+
+/* LANG BAR */
+.lang-bar{background:var(--navy);padding:9px 5%;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;}
+.lang-bar-msg{font-size:12px;color:rgba(255,255,255,.5);}
+.lang-bar-msg strong{color:var(--gold-light);}
+.lang-switcher{display:flex;gap:6px;}
+.lang-btn{background:transparent;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.55);padding:4px 14px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;font-family:'Plus Jakarta Sans',sans-serif;letter-spacing:.06em;}
+.lang-btn.active,.lang-btn:hover{background:var(--gold);color:var(--navy);border-color:var(--gold);}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(250,249,246,.96);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.nav-inner{display:flex;justify-content:space-between;align-items:center;height:66px;padding:0 5%;}
+.nav-logo{font-family:'Playfair Display',serif;font-size:26px;font-weight:800;color:var(--navy);}
+.nav-logo span{color:var(--gold);}
+.nav-links{display:flex;gap:28px;list-style:none;}
+.nav-links a{color:var(--muted);font-size:14px;font-weight:600;transition:color .2s;}
+.nav-links a:hover{color:var(--navy);}
+.nav-cta{background:var(--navy);color:var(--white);padding:11px 26px;border-radius:6px;font-size:14px;font-weight:700;transition:all .2s;border:2px solid var(--navy);}
+.nav-cta:hover{background:var(--gold);border-color:var(--gold);color:var(--navy);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{width:24px;height:2px;background:var(--navy);border-radius:2px;display:block;}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--navy);z-index:999;flex-direction:column;justify-content:center;align-items:center;gap:32px;}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{color:var(--white);font-family:'Playfair Display',serif;font-size:26px;font-weight:700;}
+.mobile-close{position:absolute;top:24px;right:5%;color:var(--white);font-size:28px;cursor:pointer;background:none;border:none;}
+
+/* BUTTONS */
+.btn-gold{display:inline-flex;align-items:center;gap:9px;background:var(--gold);color:var(--navy);padding:14px 32px;border-radius:6px;font-weight:800;font-size:15px;transition:all .22s;border:2px solid var(--gold);}
+.btn-gold:hover{background:var(--gold-light);border-color:var(--gold-light);transform:translateY(-1px);box-shadow:0 6px 20px rgba(201,151,58,.3);}
+.btn-ghost{display:inline-flex;align-items:center;gap:9px;background:transparent;color:var(--gold-light);padding:14px 32px;border-radius:6px;font-weight:700;font-size:15px;border:2px solid rgba(201,151,58,.5);transition:all .22s;}
+.btn-ghost:hover{background:var(--gold);color:var(--navy);border-color:var(--gold);}
+.btn-navy-outline{display:inline-flex;align-items:center;gap:9px;background:transparent;color:var(--navy);padding:12px 24px;border-radius:6px;font-weight:700;font-size:14px;border:2px solid var(--navy);transition:all .22s;}
+.btn-navy-outline:hover{background:var(--navy);color:var(--white);}
+
+/* HERO */
+.hero{background:var(--navy);position:relative;overflow:hidden;padding:80px 5% 70px;}
+.hero-dots{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);background-size:40px 40px;}
+.hero-accent{position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--gold),var(--gold-light),var(--gold));}
+.hero-inner{display:grid;grid-template-columns:1.15fr 0.85fr;gap:64px;align-items:center;position:relative;z-index:1;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:10px;background:rgba(201,151,58,.12);border:1px solid rgba(201,151,58,.28);color:var(--gold-light);padding:7px 18px;border-radius:4px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:26px;}
+.eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 2s infinite;flex-shrink:0;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(40px,5vw,68px);font-weight:800;line-height:1.08;letter-spacing:-1.5px;color:var(--white);margin-bottom:20px;}
+.hero h1 em{font-style:normal;color:var(--gold);}
+.hero-sub{font-size:17px;color:rgba(255,255,255,.62);font-weight:400;max-width:500px;margin-bottom:36px;line-height:1.78;}
+.hero-sub strong{color:var(--white);font-weight:700;}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:48px;}
+
+.hero-trust{display:flex;gap:28px;padding-top:28px;border-top:1px solid rgba(255,255,255,.1);flex-wrap:wrap;}
+.trust-item{display:flex;align-items:center;gap:9px;}
+.trust-icon{font-size:18px;}
+.trust-text{font-size:13px;color:rgba(255,255,255,.55);line-height:1.4;}
+.trust-text strong{color:var(--gold-light);display:block;font-size:14px;}
+
+.hero-contact-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:30px;position:relative;}
+.hc-badge{position:absolute;top:-12px;right:20px;background:var(--gold);color:var(--navy);font-size:10px;font-weight:800;padding:5px 14px;border-radius:4px;letter-spacing:.07em;text-transform:uppercase;}
+.hc-title{font-size:12px;color:var(--gold-light);font-weight:700;text-transform:uppercase;letter-spacing:.12em;margin-bottom:18px;}
+.hc-msg{font-size:15px;color:rgba(255,255,255,.75);line-height:1.6;margin-bottom:22px;}
+.hc-msg strong{color:var(--white);}
+.hc-btn{display:block;text-align:center;background:var(--gold);color:var(--navy);font-weight:800;font-size:20px;padding:16px;border-radius:10px;letter-spacing:.3px;margin-bottom:10px;transition:background .2s;}
+.hc-btn:hover{background:var(--gold-light);}
+.hc-btn-wa{display:block;text-align:center;background:rgba(37,211,102,.14);border:1px solid rgba(37,211,102,.4);color:#3dcc7a;font-weight:700;font-size:14px;padding:12px;border-radius:10px;transition:background .2s;}
+.hc-btn-wa:hover{background:rgba(37,211,102,.22);}
+.hc-note{margin-top:14px;font-size:12px;color:rgba(255,255,255,.38);text-align:center;line-height:1.5;}
+
+/* TICKER */
+.ticker{background:var(--gold);padding:11px 0;overflow:hidden;}
+.ticker-track{display:flex;animation:tickanim 30s linear infinite;white-space:nowrap;}
+.ticker-item{display:inline-flex;align-items:center;gap:14px;padding:0 28px;font-size:12px;font-weight:800;color:var(--navy);letter-spacing:.1em;text-transform:uppercase;}
+.ticker-dot{width:4px;height:4px;border-radius:50%;background:rgba(13,27,46,.35);}
+@keyframes tickanim{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* SECTIONS */
+.section{padding:90px 5%;}
+.section-off{background:var(--off);}
+.section-navy{background:var(--navy);}
+.s-tag{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+.s-tag::before{content:'';width:18px;height:2px;background:var(--gold);flex-shrink:0;}
+.s-tag-light{color:var(--gold-light);}
+.s-tag-light::before{background:var(--gold-light);}
+.s-title{font-family:'Playfair Display',serif;font-size:clamp(28px,3.6vw,48px);font-weight:800;letter-spacing:-1px;line-height:1.12;margin-bottom:14px;color:var(--navy);}
+.s-title-w{color:var(--white);}
+.s-sub{font-size:16px;color:var(--muted);max-width:540px;line-height:1.76;font-weight:400;}
+.s-sub-light{color:rgba(255,255,255,.56);}
+.sec-hd{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:56px;gap:32px;flex-wrap:wrap;}
+.text-center{text-align:center;}
+.mx-auto{margin-left:auto;margin-right:auto;}
+
+/* PROCESS */
+.process-intro{text-align:center;max-width:600px;margin:0 auto 56px;}
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;}
+.steps-grid::before{content:'';position:absolute;top:35px;left:12%;right:12%;height:2px;background:var(--border);z-index:0;}
+.step{text-align:center;padding:0 16px;position:relative;z-index:1;}
+.step-circle{width:70px;height:70px;border-radius:50%;background:var(--white);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:var(--navy);transition:all .3s;box-shadow:var(--shadow);}
+.step:hover .step-circle{background:var(--gold);border-color:var(--gold);color:var(--navy);}
+.step-label{font-size:11px;font-weight:700;color:var(--gold);background:var(--gold-pale);padding:3px 10px;border-radius:4px;display:inline-block;margin-bottom:10px;}
+.step-title{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:8px;}
+.step-desc{font-size:13px;color:var(--muted);line-height:1.65;}
+
+/* INDUSTRIES */
+.ind-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+.ind-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:22px 16px;text-align:center;transition:all .25s;cursor:default;}
+.ind-card:hover{border-color:var(--gold);box-shadow:var(--shadow-md);transform:translateY(-3px);}
+.ind-card:hover .ind-icon{background:var(--gold);}
+.ind-icon{width:50px;height:50px;border-radius:12px;background:var(--off);display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 12px;transition:background .25s;}
+.ind-name{font-size:13px;font-weight:700;color:var(--navy);line-height:1.4;}
+.ind-sub{font-size:11px;color:var(--muted2);margin-top:4px;}
+
+/* SERVICES */
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.svc-card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:34px 28px;position:relative;overflow:hhidden;transition:all .25s;}
+.svc-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-4px);border-color:var(--gold);}
+.svc-num{font-family:'Playfair Display',serif;font-size:40px;font-weight:800;color:var(--gold-pale);line-height:1;margin-bottom:14px;}
+.svc-emoji{font-size:26px;margin-bottom:12px;}
+.svc-title{font-family:'Playfair Display',serif;font-size:19px;font-weight:800;color:var(--navy);margin-bottom:8px;line-height:1.2;}
+.svc-desc{font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:16px;}
+.svc-list{list-style:none;display:flex;flex-direction:column;gap:7px;}
+.svc-list li{font-size:13px;color:var(--text);display:flex;align-items:flex-start;gap:8px;line-height:1.5;}
+.svc-list li::before{content:'✓';color:var(--gold);font-weight:800;flex-shrink:0;margin-top:1px;}
+.svc-link{display:inline-flex;align-items:center;gap:6px;margin-top:18px;color:var(--gold);font-size:13px;font-weight:700;transition:gap .2s;cursor:pointer;}
+.svc-link:hover{gap:10px;}
+
+/* CONTACT SECTION (replaces AI section) */
+.contact-section{background:var(--navy);}
+.contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;}
+.contact-left .s-title-w{color:var(--white);}
+.contact-left .s-sub-light{color:rgba(255,255,255,.65);margin-bottom:28px;}
+.contact-methods{display:flex;flex-direction:column;gap:24px;}
+.contact-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:24px;transition:all .2s;}
+.contact-card:hover{background:rgba(255,255,255,.08);border-color:rgba(201,151,58,.4);}
+.contact-card-title{font-size:18px;font-weight:800;color:var(--white);margin-bottom:8px;display:flex;align-items:center;gap:10px;}
+.contact-card-desc{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:16px;}
+.contact-link{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--navy);padding:10px 20px;border-radius:40px;font-weight:700;font-size:14px;transition:all .2s;}
+.contact-link:hover{background:var(--gold-light);gap:12px;}
+.contact-link-wa{background:#25d366;color:#fff;}
+.contact-link-wa:hover{background:#128c7e;}
+.contact-email-link{color:var(--gold-light);font-weight:600;text-decoration:underline;}
+
+/* QUOTE FORM SECTION */
+.quote-section{padding:90px 5%;background:var(--off);}
+.quote-form-card{background:var(--white);border:1px solid var(--border);border-radius:18px;padding:38px;box-shadow:var(--shadow);max-width:800px;margin:0 auto;}
+.form-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:800;color:var(--navy);margin-bottom:4px;}
+.form-subtitle{font-size:13px;color:var(--muted);margin-bottom:28px;}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+.fg{display:flex;flex-direction:column;gap:5px;margin-bottom:14px;}
+.fg label{font-size:12px;font-weight:700;color:var(--navy);letter-spacing:.04em;}
+.fg input,.fg select,.fg textarea{border:1.5px solid var(--border);border-radius:8px;padding:11px 14px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;color:var(--text);background:var(--white);outline:none;transition:border-color .2s;width:100%;}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--gold);}
+.fg select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;}
+.fg textarea{resize:vertical;min-height:80px;}
+.checks-lbl{font-size:12px;font-weight:700;color:var(--navy);display:block;margin-bottom:10px;}
+.checks-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;}
+.c-check{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);cursor:pointer;padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;transition:all .2s;}
+.c-check:hover{border-color:var(--gold);color:var(--navy);}
+.c-check input{accent-color:var(--gold);width:15px;height:15px;flex-shrink:0;}
+.submit-btn{width:100%;background:var(--navy);color:var(--white);padding:15px;border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:16px;border:none;cursor:pointer;transition:all .22s;margin-top:6px;}
+.submit-btn:hover{background:var(--gold);color:var(--navy);}
+.form-foot{font-size:12px;color:var(--muted2);text-align:center;margin-top:14px;line-height:1.6;}
+.form-foot a{color:var(--gold);}
+.success-msg{display:none;text-align:center;padding:28px;background:var(--gold-pale);border-radius:12px;margin-top:16px;}
+.success-msg h3{font-size:20px;font-weight:800;color:var(--navy);margin-bottom:8px;}
+.success-msg p{font-size:14px;color:var(--muted);}
+
+/* TESTIMONIALS */
+.testi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.testi-card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:30px;transition:box-shadow .25s;position:relative;overflow:hidden;}
+.testi-card:hover{box-shadow:var(--shadow-md);}
+.testi-card::before{content:'"';position:absolute;top:-8px;left:16px;font-family:'Playfair Display',serif;font-size:100px;color:var(--gold-pale);line-height:1;pointer-events:none;}
+.testi-tag{display:inline-block;background:var(--gold-pale);color:var(--gold);font-size:10px;font-weight:700;padding:3px 10px;border-radius:4px;letter-spacing:.05em;text-transform:uppercase;margin-bottom:12px;}
+.testi-stars{color:var(--gold);font-size:14px;letter-spacing:2px;margin-bottom:12px;}
+.testi-quote{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:20px;font-style:italic;position:relative;}
+.testi-person{display:flex;align-items:center;gap:12px;}
+.testi-av{width:42px;height:42px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:15px;font-weight:800;color:var(--gold);flex-shrink:0;}
+.testi-name{font-size:14px;font-weight:700;color:var(--navy);}
+.testi-biz{font-size:12px;color:var(--muted2);}
+.testi-es{font-size:11px;color:var(--gold);font-weight:700;margin-top:2px;}
+
+/* BILINGUAL BANNER */
+.bil-banner{background:var(--navy3);padding:60px 5%;text-align:center;}
+.bil-inner{max-width:660px;margin:0 auto;}
+.bil-flags{font-size:30px;display:flex;justify-content:center;gap:10px;margin-bottom:18px;}
+.bil-banner h2{font-family:'Playfair Display',serif;font-size:clamp(24px,3.2vw,38px);font-weight:800;color:var(--white);line-height:1.2;margin-bottom:12px;}
+.bil-banner h2 em{font-style:normal;color:var(--gold);}
+.bil-banner p{font-size:15px;color:rgba(255,255,255,.55);line-height:1.75;margin-bottom:24px;}
+.bil-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;}
+.bil-tag{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.65);font-size:12px;font-weight:600;padding:6px 14px;border-radius:4px;}
+
+/* FINAL CTA */
+.cta-final{background:var(--navy);padding:90px 5%;text-align:center;}
+.cta-inner{max-width:640px;margin:0 auto;}
+.cta-final h2{font-family:'Playfair Display',serif;font-size:clamp(30px,4vw,52px);font-weight:800;color:var(--white);line-height:1.12;margin-bottom:16px;}
+.cta-final h2 em{font-style:normal;color:var(--gold);}
+.cta-final p{font-size:16px;color:rgba(255,255,255,.56);line-height:1.76;margin-bottom:36px;}
+.cta-actions{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;}
+
+/* FOOTER */
+footer{background:var(--navy2);padding:60px 5% 32px;}
+.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:48px;margin-bottom:40px;}
+.footer-logo{font-family:'Playfair Display',serif;font-size:24px;font-weight:800;color:var(--white);margin-bottom:12px;}
+.footer-logo span{color:var(--gold);}
+.footer-tagline{font-size:13px;color:rgba(255,255,255,.42);line-height:1.7;}
+.footer-col-title{font-size:11px;font-weight:700;color:var(--gold-light);text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px;}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer-links a{font-size:13px;color:rgba(255,255,255,.45);transition:color .2s;}
+.footer-links a:hover{color:var(--gold-light);}
+.footer-contact-row{font-size:13px;color:rgba(255,255,255,.45);margin-bottom:10px;}
+.footer-contact-row a{color:rgba(255,255,255,.45);transition:color .2s;}
+.footer-contact-row a:hover{color:var(--gold-light);}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.footer-copy{font-size:12px;color:rgba(255,255,255,.28);}
+
+/* STICKY PHONE/WHATSAPP */
+.sticky-phone{position:fixed;bottom:22px;right:22px;z-index:999;display:flex;flex-direction:column;gap:9px;align-items:flex-end;}
+.sticky-btn{display:flex;align-items:center;gap:9px;padding:12px 20px;border-radius:100px;font-weight:800;font-size:14px;text-decoration:none;box-shadow:0 8px 30px rgba(0,0,0,.22);transition:transform .2s;}
+.sticky-btn:hover{transform:translateY(-2px);}
+.sticky-call{background:var(--gold);color:var(--navy);}
+.sticky-wa{background:#25d366;color:#fff;}
+@media(max-width:600px){
+  .sticky-phone .sticky-lbl{display:none;}
+  .sticky-btn{padding:14px;border-radius:50%;}
+}
+
+/* REVEAL ANIMATIONS */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.d1{transition-delay:.1s;} .d2{transition-delay:.2s;} .d3{transition-delay:.3s;}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .nav-links,.nav-cta{display:none;}
+  .hamburger{display:flex;}
+  .hero-inner,.contact-wrap{grid-template-columns:1fr;}
+  .hero{padding:60px 5%;}
+  .ind-grid{grid-template-columns:repeat(2,1fr);}
+  .svc-grid,.testi-row{grid-template-columns:1fr;}
+  .steps-grid{grid-template-columns:1fr 1fr;}
+  .steps-grid::before{display:none;}
+  .f-row,.checks-row{grid-template-columns:1fr;}
+  .footer-grid{grid-template-columns:1fr;}
+  .cta-actions{flex-direction:column;align-items:center;}
+  .section{padding:64px 5%;}
+}
+@media(max-width:480px){
+  .ind-grid{grid-template-columns:repeat(2,1fr);}
+  .steps-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- LANG BAR -->
+<div class="lang-bar">
+  <div class="lang-bar-msg" id="langMsg">
+    <strong>🌎 Serving businesses across the U.S. · English & Spanish</strong>
+  </div>
+  <div class="lang-switcher">
+    <button class="lang-btn active" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" onclick="setLang('es')">ES</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Free<span>LAN</span></a>
+    <ul class="nav-links">
+      <li><a href="#how" data-en>How It Works</a><a href="#how" data-es>Cómo Funciona</a></li>
+      <li><a href="#services" data-en>Services</a><a href="#services" data-es>Servicios</a></li>
+      <li><a href="#results" data-en>Results</a><a href="#results" data-es>Resultados</a></li>
+      <li><a href="#quote-form" data-en>Get a Quote</a><a href="#quote-form" data-es>Cotización</a></li>
+    </ul>
+    <a href="#quote-form" class="nav-cta"><span data-en>Free Quote</span><span data-es>Cotización Gratis</span></a>
+    <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="toggleMenu()">✕</button>
+  <a href="#how" onclick="toggleMenu()">How It Works</a>
+  <a href="#services" onclick="toggleMenu()">Services</a>
+  <a href="#results" onclick="toggleMenu()">Results</a>
+  <a href="#quote-form" onclick="toggleMenu()">Get a Quote</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-dots"></div>
+  <div class="hero-accent"></div>
+  <div class="hero-inner">
+    <div class="reveal">
+      <div class="hero-eyebrow"><span class="eyebrow-dot"></span><span data-en>Digital Marketing · Lead Generation · AI-Powered</span><span data-es>Marketing Digital · Generación de Leads · Con IA</span></div>
+      <h1 data-en>More Leads.<br><em>More Clients.</em><br>Real Growth.</h1>
+      <h1 data-es>Más Leads.<br><em>Más Clientes.</em><br>Crecimiento Real.</h1>
+      <p class="hero-sub" data-en>We help businesses across the <strong>United States</strong> attract more clients with websites, social media, paid ads, and AI — <strong>no long contracts, just results.</strong></p>
+      <p class="hero-sub" data-es>Ayudamos a negocios en <strong>Estados Unidos</strong> a conseguir más clientes con sitios web, redes sociales, anuncios e IA — <strong>sin contratos largos, solo resultados.</strong></p>
+      <div class="hero-actions">
+        <a href="#quote-form" class="btn-gold"><span data-en>Get My Free Quote →</span><span data-es>Quiero Mi Cotización →</span></a>
+        <a href="#how" class="btn-ghost"><span data-en>See How It Works</span><span data-es>Ver Cómo Funciona</span></a>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-item"><span class="trust-icon">⚡</span><span class="trust-text"><strong data-en>Website live in 3–7 days</strong><strong data-es>Sitio web en 3–7 días</strong><span data-en>Fast setup, no waiting</span><span data-es>Configuración rápida</span></span></div>
+        <div class="trust-item"><span class="trust-icon">🤝</span><span class="trust-text"><strong data-en>We speak Spanish</strong><strong data-es>Hablamos español</strong><span data-en>Bilingual team</span><span data-es>Equipo bilingüe</span></span></div>
+        <div class="trust-item"><span class="trust-icon">📞</span><span class="trust-text"><strong data-en>Reply in 24 hours</strong><strong data-es>Respuesta en 24h</strong><span data-en>To every quote request</span><span data-es>A toda solicitud</span></span></div>
+      </div>
+    </div>
+    <div class="reveal d2">
+      <div class="hero-contact-card">
+        <div class="hc-badge" data-en>CONTACT US NOW</div>
+        <div class="hc-badge" data-es>CONTÁCTANOS AHORA</div>
+        <div class="hc-title" data-en>Ready to get more clients?</div>
+        <div class="hc-title" data-es>¿Listo para conseguir más clientes?</div>
+        <p class="hc-msg" data-en>Call or text us and we'll put together a <strong>free custom strategy</strong> for your business within 24 hours.</p>
+        <p class="hc-msg" data-es>Llámanos y te preparamos una <strong>estrategia personalizada gratis</strong> para tu negocio en 24 horas.</p>
+        <a href="tel:+19454008937" class="hc-btn">📞 +1 (945) 400-8937</a>
+        <a href="https://wa.me/19454008937?text=Hi!%20I%20need%20more%20clients%20for%20my%20business" target="_blank" class="hc-btn-wa">💬 <span data-en>Chat on WhatsApp</span><span data-es>Chatear por WhatsApp</span></a>
+        <p class="hc-note" data-en>Free · No commitment · Bilingual · Response same day</p>
+        <p class="hc-note" data-es>Gratis · Sin compromiso · Bilingüe · Respuesta el mismo día</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker"><div class="ticker-track"><span class="ticker-item">Website Design <span class="ticker-dot"></span></span><span class="ticker-item">Social Media Management <span class="ticker-dot"></span></span><span class="ticker-item">Meta Ads <span class="ticker-dot"></span></span><span class="ticker-item">AI Marketing <span class="ticker-dot"></span></span><span class="ticker-item">Local SEO <span class="ticker-dot"></span></span><span class="ticker-item">Google Ads <span class="ticker-dot"></span></span><span class="ticker-item">Lead Generation <span class="ticker-dot"></span></span><span class="ticker-item">Se Habla Español 🌎 <span class="ticker-dot"></span></span></div></div>
+
+<!-- HOW IT WORKS -->
+<section class="section reveal" id="how">
+  <div class="process-intro reveal">
+    <div class="s-tag" style="justify-content:center;"><span data-en>Simple Process</span><span data-es>Proceso Simple</span></div>
+    <h2 class="s-title text-center" data-en>Here's Exactly What<br>Happens When You Contact Us</h2>
+    <h2 class="s-title text-center" data-es>Esto Es Exactamente Lo Que<br>Pasa Cuando Nos Contactas</h2>
+    <p class="s-sub mx-auto text-center" data-en>No guesswork. No waiting. A clear, step-by-step path from your first message to your first new client.</p>
+    <p class="s-sub mx-auto text-center" data-es>Sin adivinar. Sin esperar. Un camino claro, paso a paso, desde tu primer mensaje hasta tu primer cliente nuevo.</p>
+  </div>
+  <div class="steps-grid">
+    <div class="step reveal"><div class="step-circle">01</div><div class="step-label" data-en>Day 1</div><div class="step-label" data-es>Día 1</div><div class="step-title" data-en>You contact us</div><div class="step-title" data-es>Nos contactas</div><p class="step-desc" data-en>Call, text, WhatsApp, or fill out the form. We respond the same day with a free consultation.</p><p class="step-desc" data-es>Llama, escribe, WhatsApp o llena el formulario. Respondemos el mismo día con una consulta gratis.</p></div>
+    <div class="step reveal d1"><div class="step-circle">02</div><div class="step-label" data-en>Days 2–7</div><div class="step-label" data-es>Días 2–7</div><div class="step-title" data-en>We build everything</div><div class="step-title" data-es>Construimos todo</div><p class="step-desc" data-en>Your website, social media profiles, and ad campaigns are created and ready to launch.</p><p class="step-desc" data-es>Tu sitio web, perfiles de redes sociales y campañas publicitarias se crean y están listos.</p></div>
+    <div class="step reveal d2"><div class="step-circle">03</div><div class="step-label" data-en>Week 1</div><div class="step-label" data-es>Semana 1</div><div class="step-title" data-en>Everything goes live</div><div class="step-title" data-es>Todo sale en vivo</div><p class="step-desc" data-en>Site is published, ads are running, social media is active. We monitor everything daily.</p><p class="step-desc" data-es>El sitio está publicado, los anuncios corriendo, las redes activas. Monitoreamos todo diariamente.</p></div>
+    <div class="step reveal d3"><div class="step-circle">04</div><div class="step-label" data-en>Week 1–3</div><div class="step-label" data-es>Semana 1–3</div><div class="step-title" data-en>Clients start calling</div><div class="step-title" data-es>Los clientes empiezan a llamar</div><p class="step-desc" data-en>Your phone rings. Messages come in. We keep optimizing every week so it only gets better.</p><p class="step-desc" data-es>Tu teléfono suena. Llegan mensajes. Seguimos optimizando cada semana para que mejore.</p></div>
+  </div>
+</section>
+
+<!-- INDUSTRIES -->
+<section class="section section-off reveal" id="industries">
+  <div class="reveal" style="text-align:center;max-width:620px;margin:0 auto 52px;">
+    <div class="s-tag" style="justify-content:center;"><span data-en>We work with every type of business</span><span data-es>Trabajamos con todo tipo de negocio</span></div>
+    <h2 class="s-title" data-en>Your Industry. Our Expertise.</h2>
+    <h2 class="s-title" data-es>Tu Industria. Nuestra Experiencia.</h2>
+    <p class="s-sub mx-auto" data-en>From local contractors to restaurants — if you have customers, we can bring you more.</p>
+    <p class="s-sub mx-auto" data-es>Desde contratistas locales hasta restaurantes — si tienes clientes, podemos traerte más.</p>
+  </div>
+  <div class="ind-grid">
+    <div class="ind-card reveal d1"><div class="ind-icon">🔨</div><div class="ind-name" data-en>Construction & Remodeling</div><div class="ind-name" data-es>Construcción y Remodelación</div><div class="ind-sub">Contractors · Builders</div></div>
+    <div class="ind-card reveal d1"><div class="ind-icon">🔧</div><div class="ind-name" data-en>Plumbing & HVAC</div><div class="ind-name" data-es>Plomería y HVAC</div><div class="ind-sub">Home Services · Electrical</div></div>
+    <div class="ind-card reveal d2"><div class="ind-icon">🍽️</div><div class="ind-name" data-en>Restaurants & Food</div><div class="ind-name" data-es>Restaurantes y Comida</div><div class="ind-sub">Cafes · Catering · Food Trucks</div></div>
+    <div class="ind-card reveal d2"><div class="ind-icon">💇</div><div class="ind-name" data-en>Beauty & Wellness</div><div class="ind-name" data-es>Belleza y Bienestar</div><div class="ind-sub">Salons · Spas · Barbershops</div></div>
+    <div class="ind-card reveal d1"><div class="ind-icon">🌿</div><div class="ind-name" data-en>Landscaping & Cleaning</div><div class="ind-name" data-es>Landscaping y Limpieza</div><div class="ind-sub">Lawn Care · Pressure Washing</div></div>
+    <div class="ind-card reveal d1"><div class="ind-icon">⚖️</div><div class="ind-name" data-en>Professional Services</div><div class="ind-name" data-es>Servicios Profesionales</div><div class="ind-sub">Lawyers · Accountants</div></div>
+    <div class="ind-card reveal d2"><div class="ind-icon">🏥</div><div class="ind-name" data-en>Medical & Dental</div><div class="ind-name" data-es>Médico y Dental</div><div class="ind-sub">Clinics · Specialists</div></div>
+    <div class="ind-card reveal d2"><div class="ind-icon">🛒</div><div class="ind-name" data-en>Retail & E-Commerce</div><div class="ind-name" data-es>Tiendas y E-Commerce</div><div class="ind-sub">Stores · Online Shops</div></div>
+    <div class="ind-card reveal d1"><div class="ind-icon">🚗</div><div class="ind-name" data-en>Auto & Transportation</div><div class="ind-name" data-es>Automotriz y Transporte</div><div class="ind-sub">Shops · Detailing · Towing</div></div>
+    <div class="ind-card reveal d1"><div class="ind-icon">🎓</div><div class="ind-name" data-en>Education & Coaching</div><div class="ind-name" data-es>Educación y Coaching</div><div class="ind-sub">Tutors · Trainers · Courses</div></div>
+    <div class="ind-card reveal d2"><div class="ind-icon">🏋️</div><div class="ind-name" data-en>Fitness & Sports</div><div class="ind-name" data-es>Fitness y Deportes</div><div class="ind-sub">Gyms · Studios · Trainers</div></div>
+    <div class="ind-card reveal d2" style="border-color:var(--gold);background:var(--gold-pale);"><div class="ind-icon" style="background:var(--white);">✨</div><div class="ind-name" data-en>Any Local Business</div><div class="ind-name" data-es>Cualquier Negocio Local</div><div class="ind-sub" data-en>If you serve clients, we help you grow</div><div class="ind-sub" data-es>Si atiendes clientes, te ayudamos</div></div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section reveal" id="services">
+  <div class="sec-hd reveal"><div><div class="s-tag"><span data-en>What We Do</span><span data-es>Lo Que Hacemos</span></div><h2 class="s-title" data-en>Services Built to<br>Generate Real Leads</h2><h2 class="s-title" data-es>Servicios Para<br>Generar Leads Reales</h2></div><p class="s-sub" data-en>Every service has one goal: bring real potential customers to your phone, inbox, and door.</p><p class="s-sub" data-es>Cada servicio tiene un objetivo: llevar clientes reales a tu teléfono, correo y negocio.</p></div>
+  <div class="svc-grid">
+    <div class="svc-card reveal"><div class="svc-num">01</div><div class="svc-emoji">🌐</div><div class="svc-title" data-en>Conversion Website</div><div class="svc-title" data-es>Sitio Web de Conversión</div><p class="svc-desc" data-en>A professional page that turns visitors into customers — not just looks good. Live in 3–7 days.</p><p class="svc-desc" data-es>Una página profesional que convierte visitas en clientes. Lista en 3–7 días.</p><ul class="svc-list"><li data-en>Works perfectly on phone & desktop</li><li data-es>Funciona en móvil y computadora</li><li data-en>Call & WhatsApp buttons built-in</li><li data-es>Botones de llamada y WhatsApp</li><li data-en>Google Maps integration</li><li data-es>Integración con Google Maps</li><li data-en>Local SEO so Google finds you</li><li data-es>SEO local para que Google te encuentre</li></ul><a href="#quote-form" class="svc-link"><span data-en>Request quote →</span><span data-es>Solicitar cotización →</span></a></div>
+    <div class="svc-card reveal d1"><div class="svc-num">02</div><div class="svc-emoji">📱</div><div class="svc-title" data-en>Social Media Management</div><div class="svc-title" data-es>Redes Sociales</div><p class="svc-desc" data-en>We manage your Facebook & Instagram so you can focus on your business, not on posting.</p><p class="svc-desc" data-es>Gestionamos tu Facebook e Instagram para que te enfoques en tu negocio, no en publicar.</p><ul class="svc-list"><li data-en>3–4 posts per week</li><li data-es>3–4 publicaciones por semana</li><li data-en>Before/after, testimonials & reels</li><li data-es>Antes/después, testimonios y reels</li><li data-en>Content that gets people to call you</li><li data-es>Contenido que hace que te llamen</li><li data-en>Community management & responses</li><li data-es>Gestión de comunidad y respuestas</li></ul><a href="#quote-form" class="svc-link"><span data-en>Request quote →</span><span data-es>Solicitar cotización →</span></a></div>
+    <div class="svc-card reveal d2"><div class="svc-num">03</div><div class="svc-emoji">🎯</div><div class="svc-title" data-en>Paid Ads (Meta & Google)</div><div class="svc-title" data-es>Publicidad (Meta y Google)</div><p class="svc-desc" data-en>Ads shown to people in your area who are already looking for what you offer.</p><p class="svc-desc" data-es>Anuncios mostrados a personas en tu zona que ya buscan lo que ofreces.</p><ul class="svc-list"><li data-en>Targeted by city or zip code</li><li data-es>Segmentado por ciudad o código postal</li><li data-en>Drives direct calls & messages</li><li data-es>Genera llamadas y mensajes directos</li><li data-en>Optimized every week</li><li data-es>Optimizado cada semana</li><li data-en>Monthly report — you see everything</li><li data-es>Reporte mensual — ves todo</li></ul><a href="#quote-form" class="svc-link"><span data-en>Request quote →</span><span data-es>Solicitar cotización →</span></a></div>
+    <div class="svc-card reveal"><div class="svc-num">04</div><div class="svc-emoji">🤖</div><div class="svc-title" data-en>AI-Powered Marketing</div><div class="svc-title" data-es>Marketing con Inteligencia Artificial</div><p class="svc-desc" data-en>AI tools that respond to leads instantly, write better ads, and keep your business working 24/7 — even when you're sleeping.</p><p class="svc-desc" data-es>Herramientas de IA que responden leads al instante, escriben mejores anuncios y mantienen tu negocio activo 24/7 — hasta cuando duermes.</p><ul class="svc-list"><li data-en>WhatsApp chatbot answers instantly</li><li data-es>Chatbot de WhatsApp responde al instante</li><li data-en>Automated follow-up messages</li><li data-es>Mensajes de seguimiento automáticos</li><li data-en>AI writes better ad copy faster</li><li data-es>La IA escribe mejores anuncios más rápido</li><li data-en>Never miss a lead again</li><li data-es>Nunca pierdas un lead de nuevo</li></ul><a href="#quote-form" class="svc-link"><span data-en>Request quote →</span><span data-es>Solicitar cotización →</span></a></div>
+    <div class="svc-card reveal d1"><div class="svc-num">05</div><div class="svc-emoji">📍</div><div class="svc-title" data-en>Local SEO & Google Maps</div><div class="svc-title" data-es>SEO Local y Google Maps</div><p class="svc-desc" data-en>When someone in your city searches for your service on Google, you show up first — not your competitor.</p><p class="svc-desc" data-es>Cuando alguien en tu ciudad busca tu servicio en Google, apareces tú primero — no tu competidor.</p><ul class="svc-list"><li data-en>Google Business Profile set up & optimized</li><li data-es>Perfil de Google Business optimizado</li><li data-en>Keywords your customers search for</li><li data-es>Palabras clave que buscan tus clientes</li><li data-en>Review strategy to build trust</li><li data-es>Estrategia de reseñas para generar confianza</li><li data-en>Maps visibility — get found locally</li><li data-es>Visibilidad en Maps — encuéntrate localmente</li></ul><a href="#quote-form" class="svc-link"><span data-en>Request quote →</span><span data-es>Solicitar cotización →</span></a></div>
+    <div class="svc-card reveal d2"><div class="svc-num">06</div><div class="svc-emoji">📊</div><div class="svc-title" data-en>Monthly Reports</div><div class="svc-title" data-es>Reportes Mensuales</div><p class="svc-desc" data-en>Every month you get a clear report: how many people saw your ads, how many contacted you, and what we're doing to improve.</p><p class="svc-desc" data-es>Cada mes recibes un reporte claro: cuántas personas vieron tus anuncios, cuántas te contactaron y qué hacemos para mejorar.</p><ul class="svc-list"><li data-en>How many leads came in</li><li data-es>Cuántos leads llegaron</li><li data-en>Which ads are working best</li><li data-es>Qué anuncios funcionan mejor</li><li data-en>What we're improving next month</li><li data-es>Qué mejoraremos el próximo mes</li><li data-en>Direct access to ask us anything</li><li data-es>Acceso directo para preguntarnos lo que sea</li></ul><a href="#quote-form" class="svc-link"><span data-en>Request quote →</span><span data-es>Solicitar cotización →</span></a></div>
+  </div>
+</section>
+
+<!-- CONTACT SECTION (replaces AI) -->
+<section class="section section-navy reveal" id="contact">
+  <div class="contact-wrap">
+    <div class="contact-left reveal">
+      <div class="s-tag s-tag-light"><span data-en>Contact us directly</span><span data-es>Contáctanos directamente</span></div>
+      <h2 class="s-title s-title-w" data-en>We're Here to Help<br><em style="color:var(--gold)">You Grow Your Business</em></h2>
+      <h2 class="s-title s-title-w" data-es>Estamos Aquí Para Ayudarte<br><em style="color:var(--gold)">A Hacer Crecer Tu Negocio</em></h2>
+      <p class="s-sub s-sub-light" data-en>Whether you prefer to call, text, or send an email, our bilingual team will respond within hours — not days. No automated menus, just real people ready to understand your needs.</p>
+      <p class="s-sub s-sub-light" data-es>Ya sea que prefieras llamar, enviar un mensaje o un email, nuestro equipo bilingüe responderá en horas — no días. Sin menús automáticos, solo personas reales listas para entender tus necesidades.</p>
+      <div class="contact-methods">
+        <div class="contact-card">
+          <div class="contact-card-title"><span>📞</span> <span data-en>Call or Text</span><span data-es>Llama o Escribe</span></div>
+          <div class="contact-card-desc" data-en>Speak directly with our team. We'll answer any questions and start your free strategy session immediately.</div>
+          <div class="contact-card-desc" data-es>Habla directamente con nuestro equipo. Responderemos cualquier pregunta y comenzaremos tu sesión de estrategia gratis de inmediato.</div>
+          <a href="tel:+19454008937" class="contact-link">📞 +1 (945) 400-8937 →</a>
+        </div>
+        <div class="contact-card">
+          <div class="contact-card-title"><span>💬</span> <span data-en>WhatsApp Chat</span><span data-es>Chat de WhatsApp</span></div>
+          <div class="contact-card-desc" data-en>Send us a message and get a quick reply. Perfect for sharing details about your business.</div>
+          <div class="contact-card-desc" data-es>Envíanos un mensaje y obtén una respuesta rápida. Perfecto para compartir detalles de tu negocio.</div>
+          <a href="https://wa.me/19454008937?text=Hi%20FreeLAN%20team!%20I%20need%20help%20with%20digital%20marketing" target="_blank" class="contact-link contact-link-wa">💬 WhatsApp →</a>
+        </div>
+        <div class="contact-card">
+          <div class="contact-card-title"><span>✉️</span> <span data-en>Email</span><span data-es>Correo Electrónico</span></div>
+          <div class="contact-card-desc" data-en>Send us your questions or fill out the form below — we'll reply within 24 hours with a custom plan.</div>
+          <div class="contact-card-desc" data-es>Envíanos tus preguntas o completa el formulario a continuación — te responderemos en 24 horas con un plan personalizado.</div>
+          <a href="mailto:RomeroHCTimox@outlook.com" class="contact-email-link">RomeroHCTimox@outlook.com →</a>
+        </div>
+      </div>
+    </div>
+    <div class="contact-right reveal d2">
+      <div class="quote-form-card" style="box-shadow:none;">
+        <div class="form-title" data-en>Request Your Free Quote</div>
+        <div class="form-title" data-es>Solicitar Cotización Gratis</div>
+        <div class="form-subtitle" data-en>We'll respond with a full custom strategy within 24 hours.</div>
+        <div class="form-subtitle" data-es>Respondemos con una estrategia completa en menos de 24 horas.</div>
+        <div class="f-row"><div class="fg"><label data-en>Your Name</label><label data-es>Tu Nombre</label><input type="text" id="fn" placeholder="John Smith / Juan García"></div><div class="fg"><label data-en>Business Name</label><label data-es>Nombre del Negocio</label><input type="text" id="fb" placeholder="My Business LLC"></div></div>
+        <div class="f-row"><div class="fg"><label>Email</label><input type="email" id="fe" placeholder="you@email.com"></div><div class="fg"><label data-en>Phone / WhatsApp</label><label data-es>Teléfono / WhatsApp</label><input type="tel" id="fp" placeholder="(000) 000-0000"></div></div>
+        <div class="f-row"><div class="fg"><label data-en>Type of Business</label><label data-es>Tipo de Negocio</label><select id="fi"><option value="" disabled selected data-en>Select your industry...</option><option>Construction / Remodeling</option><option>Plumbing / Electrical / HVAC</option><option>Landscaping / Cleaning</option><option>Restaurant / Food Service</option><option>Beauty / Salon / Spa</option><option>Medical / Dental</option><option>Legal / Accounting</option><option>Auto / Transportation</option><option>Retail / E-Commerce</option><option>Fitness / Wellness</option><option>Education / Coaching</option><option>Other / Otro</option></select></div><div class="fg"><label data-en>City & State</label><label data-es>Ciudad y Estado</label><input type="text" id="fl" placeholder="e.g. Houston, TX"></div></div>
+        <span class="checks-lbl" data-en>What services interest you?</span><span class="checks-lbl" data-es>¿Qué servicios te interesan?</span>
+        <div class="checks-row"><label class="c-check"><input type="checkbox"><span data-en>Website</span><span data-es>Sitio Web</span></label><label class="c-check"><input type="checkbox"><span data-en>Social Media</span><span data-es>Redes Sociales</span></label><label class="c-check"><input type="checkbox"><span>Meta / Google Ads</span></label><label class="c-check"><input type="checkbox"><span data-en>AI Marketing</span><span data-es>Marketing con IA</span></label><label class="c-check"><input type="checkbox"><span>Local SEO</span></label><label class="c-check"><input type="checkbox"><span data-en>Full Package</span><span data-es>Paquete Completo</span></label></div>
+        <div class="fg"><label data-en>Tell us about your business & goals (optional)</label><label data-es>Cuéntanos sobre tu negocio y metas (opcional)</label><textarea id="fm" placeholder="What do you do? Where are you located? How many new clients do you want per month?"></textarea></div>
+        <button class="submit-btn" onclick="doSubmit()"><span data-en>Send My Free Quote Request →</span><span data-es>Enviar Mi Solicitud →</span></button>
+        <p class="form-foot" data-en>Free · No commitment · Response within 24h · English & Spanish<br>📞 <a href="tel:+19454008937">+1 (945) 400-8937</a> · 💬 <a href="https://wa.me/19454008937">WhatsApp</a> · ✉ <a href="mailto:RomeroHCTimox@outlook.com">RomeroHCTimox@outlook.com</a></p>
+        <p class="form-foot" data-es>Gratis · Sin compromiso · Respuesta en 24h · Inglés y Español<br>📞 <a href="tel:+19454008937">+1 (945) 400-8937</a> · 💬 <a href="https://wa.me/19454008937">WhatsApp</a> · ✉ <a href="mailto:RomeroHCTimox@outlook.com">RomeroHCTimox@outlook.com</a></p>
+        <div class="success-msg" id="successMsg"><h3 data-en>🎉 Request Sent!</h3><h3 data-es>🎉 ¡Solicitud Enviada!</h3><p data-en>We'll reach out within 24 hours with a custom strategy. Check your email and phone!</p><p data-es>Nos pondremos en contacto en menos de 24 horas con una estrategia personalizada.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE FORM SECTION (for direct linking) -->
+<section id="quote-form" class="quote-section reveal">
+  <div class="quote-form-card">
+    <div class="form-title" data-en>Get Your Free Quote</div>
+    <div class="form-title" data-es>Obtén Tu Cotización Gratis</div>
+    <div class="form-subtitle" data-en>Fill out the form and we'll get back to you within 24 hours with a custom strategy for your business.</div>
+    <div class="form-subtitle" data-es>Completa el formulario y te responderemos en 24 horas con una estrategia personalizada para tu negocio.</div>
+    <div class="f-row"><div class="fg"><label data-en>Your Name</label><label data-es>Tu Nombre</label><input type="text" id="fn2" placeholder="John Smith / Juan García"></div><div class="fg"><label data-en>Business Name</label><label data-es>Nombre del Negocio</label><input type="text" id="fb2" placeholder="My Business LLC"></div></div>
+    <div class="f-row"><div class="fg"><label>Email</label><input type="email" id="fe2" placeholder="you@email.com"></div><div class="fg"><label data-en>Phone / WhatsApp</label><label data-es>Teléfono / WhatsApp</label><input type="tel" id="fp2" placeholder="(000) 000-0000"></div></div>
+    <div class="f-row"><div class="fg"><label data-en>Type of Business</label><label data-es>Tipo de Negocio</label><select id="fi2"><option value="" disabled selected data-en>Select your industry...</option><option>Construction / Remodeling</option><option>Plumbing / Electrical / HVAC</option><option>Landscaping / Cleaning</option><option>Restaurant / Food Service</option><option>Beauty / Salon / Spa</option><option>Medical / Dental</option><option>Legal / Accounting</option><option>Auto / Transportation</option><option>Retail / E-Commerce</option><option>Fitness / Wellness</option><option>Education / Coaching</option><option>Other / Otro</option></select></div><div class="fg"><label data-en>City & State</label><label data-es>Ciudad y Estado</label><input type="text" id="fl2" placeholder="e.g. Houston, TX"></div></div>
+    <span class="checks-lbl" data-en>What services interest you?</span><span class="checks-lbl" data-es>¿Qué servicios te interesan?</span>
+    <div class="checks-row"><label class="c-check"><input type="checkbox"><span data-en>Website</span><span data-es>Sitio Web</span></label><label class="c-check"><input type="checkbox"><span data-en>Social Media</span><span data-es>Redes Sociales</span></label><label class="c-check"><input type="checkbox"><span>Meta / Google Ads</span></label><label class="c-check"><input type="checkbox"><span data-en>AI Marketing</span><span data-es>Marketing con IA</span></label><label class="c-check"><input type="checkbox"><span>Local SEO</span></label><label class="c-check"><input type="checkbox"><span data-en>Full Package</span><span data-es>Paquete Completo</span></label></div>
+    <div class="fg"><label data-en>Tell us about your business & goals (optional)</label><label data-es>Cuéntanos sobre tu negocio y metas (opcional)</label><textarea id="fm2" placeholder="What do you do? Where are you located? How many new clients do you want per month?"></textarea></div>
+    <button class="submit-btn" onclick="doSubmit2()"><span data-en>Send My Free Quote Request →</span><span data-es>Enviar Mi Solicitud →</span></button>
+    <p class="form-foot" data-en>Free · No commitment · Response within 24h · English & Spanish<br>📞 <a href="tel:+19454008937">+1 (945) 400-8937</a> · 💬 <a href="https://wa.me/19454008937">WhatsApp</a> · ✉ <a href="mailto:RomeroHCTimox@outlook.com">RomeroHCTimox@outlook.com</a></p>
+    <p class="form-foot" data-es>Gratis · Sin compromiso · Respuesta en 24h · Inglés y Español<br>📞 <a href="tel:+19454008937">+1 (945) 400-8937</a> · 💬 <a href="https://wa.me/19454008937">WhatsApp</a> · ✉ <a href="mailto:RomeroHCTimox@outlook.com">RomeroHCTimox@outlook.com</a></p>
+    <div class="success-msg" id="successMsg2"><h3 data-en>🎉 Request Sent!</h3><h3 data-es>🎉 ¡Solicitud Enviada!</h3><p data-en>We'll reach out within 24 hours with a custom strategy. Check your email and phone!</p><p data-es>Nos pondremos en contacto en menos de 24 horas con una estrategia personalizada.</p></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section reveal" id="results">
+  <div class="sec-hd reveal"><div><div class="s-tag"><span data-en>Real Results</span><span data-es>Resultados Reales</span></div><h2 class="s-title" data-en>Business Owners<br>Who Chose to Grow</h2><h2 class="s-title" data-es>Dueños de Negocio<br>Que Eligieron Crecer</h2></div><p class="s-sub" data-en>Real clients, real cities, real results. All across the United States.</p><p class="s-sub" data-es>Clientes reales, ciudades reales, resultados reales. En todo Estados Unidos.</p></div>
+  <div class="testi-row"><div class="testi-card reveal"><div class="testi-tag">Plumbing · Miami, FL 🇺🇸</div><div class="testi-stars">★★★★★</div><p class="testi-quote" data-en>"We went from zero online presence to getting 8–12 calls a week. FreeLAN built our website in 5 days and the ads started working immediately. Best investment I've made for my business."</p><p class="testi-quote" data-es>"Pasamos de cero presencia online a recibir 8–12 llamadas por semana. FreeLAN construyó nuestro sitio en 5 días y los anuncios funcionaron de inmediato."</p><div class="testi-person"><div class="testi-av">CR</div><div><div class="testi-name">Carlos R.</div><div class="testi-biz">Plumbing Services · Miami, FL</div><div class="testi-es">🗣️ Served in Spanish</div></div></div></div>
+    <div class="testi-card reveal d1"><div class="testi-tag">Beauty Salon · PA 🇺🇸</div><div class="testi-stars">★★★★★</div><p class="testi-quote" data-en>"The monthly reports are clear and you can see the campaigns being optimized. My cost per lead dropped a lot after the second month. Extremely satisfied."</p><p class="testi-quote" data-es>"Los reportes mensuales son muy claros. Mi costo por lead bajó mucho después del segundo mes. Extremadamente satisfecha."</p><div class="testi-person"><div class="testi-av">ML</div><div><div class="testi-name">Maria L.</div><div class="testi-biz">Beauty Salon · Philadelphia, PA</div></div></div></div>
+    <div class="testi-card reveal d2"><div class="testi-tag">Landscaping · NJ 🇺🇸</div><div class="testi-stars">★★★★★</div><p class="testi-quote" data-en>"Super fast. Under a week the site was live. First week we already had 3 new quote requests. They speak Spanish which made everything much easier for me."</p><p class="testi-quote" data-es>"Proceso muy rápido. En menos de una semana el sitio estaba en vivo. La primera semana ya teníamos 3 solicitudes. ¡Hablan español, lo cual hizo todo más fácil!"</p><div class="testi-person"><div class="testi-av">JP</div><div><div class="testi-name">Jorge P.</div><div class="testi-biz">Landscaping · Newark, NJ</div><div class="testi-es">🗣️ Served in Spanish</div></div></div></div>
+  </div>
+</section>
+
+<!-- BILINGUAL BANNER -->
+<div class="bil-banner"><div class="bil-inner reveal"><div class="bil-flags">🇺🇸 🤝 🌎</div><h2 data-en>We Serve Businesses Across<br><em>The United States & Latin America</em></h2><h2 data-es>Atendemos Negocios en<br><em>Estados Unidos y Latinoamérica</em></h2><p data-en>Whether you're a contractor in New Jersey, a restaurant in Texas, or a service provider in Florida — we speak your language and understand your market.</p><p data-es>Ya seas un contratista en New Jersey, un restaurante en Texas o un proveedor en Florida — hablamos tu idioma y entendemos tu mercado.</p><div class="bil-tags"><span class="bil-tag">🇺🇸 United States</span><span class="bil-tag">🇲🇽 México</span><span class="bil-tag">🇨🇴 Colombia</span><span class="bil-tag">🇵🇪 Perú</span><span class="bil-tag">🇦🇷 Argentina</span><span class="bil-tag">🇩🇴 R. Dominicana</span><span class="bil-tag">🌎 + More</span></div></div></div>
+
+<!-- FINAL CTA -->
+<section class="cta-final reveal"><div class="cta-inner"><h2 data-en>Your Next Client Is One<br>Call Away. <em>Let's Go.</em></h2><h2 data-es>Tu Próximo Cliente Está a<br>Una Llamada. <em>Empecemos.</em></h2><p data-en>Stop losing clients to competitors who show up online. In less than a week, your business can be generating real leads.</p><p data-es>Deja de perder clientes ante competidores que sí tienen presencia online. En menos de una semana, tu negocio genera leads reales.</p><div class="cta-actions"><a href="#quote-form" class="btn-gold"><span data-en>Get My Free Quote Now →</span><span data-es>Quiero Mi Cotización Gratis →</span></a><a href="tel:+19454008937" class="btn-ghost">📞 +1 (945) 400-8937</a><a href="https://wa.me/19454008937" target="_blank" class="btn-ghost">💬 WhatsApp</a></div></div></section>
+
+<!-- FOOTER -->
+<footer><div class="footer-grid"><div><div class="footer-logo">Free<span>LAN</span></div><p class="footer-tagline" data-en>Digital marketing for businesses in the United States and Latin America. Websites, social media, paid ads, and AI — all in one place, in English and Spanish.</p><p class="footer-tagline" data-es>Marketing digital para negocios en Estados Unidos y Latinoamérica. Sitios web, redes sociales, anuncios e IA — todo en un solo lugar, en inglés y español.</p></div><div><div class="footer-col-title" data-en>Services</div><div class="footer-col-title" data-es>Servicios</div><ul class="footer-links"><li><a href="#services" data-en>Website Design</a><a href="#services" data-es>Diseño Web</a></li><li><a href="#services" data-en>Social Media</a><a href="#services" data-es>Redes Sociales</a></li><li><a href="#services" data-en>Meta & Google Ads</a><a href="#services" data-es>Meta y Google Ads</a></li><li><a href="#services" data-en>AI Marketing</a><a href="#services" data-es>Marketing con IA</a></li><li><a href="#services" data-en>Local SEO</a><a href="#services" data-es>SEO Local</a></li></ul></div><div><div class="footer-col-title" data-en>Contact</div><div class="footer-col-title" data-es>Contacto</div><div class="footer-contact-row">✉️ <a href="mailto:RomeroHCTimox@outlook.com">RomeroHCTimox@outlook.com</a></div><div class="footer-contact-row">📞 <a href="tel:+19454008937">+1 (945) 400-8937</a></div><div class="footer-contact-row">💬 <a href="https://wa.me/19454008937" target="_blank">WhatsApp</a></div><div style="margin-top:14px;font-size:12px;color:rgba(255,255,255,.28);" data-en>English & Spanish · USA & LATAM</div><div style="margin-top:14px;font-size:12px;color:rgba(255,255,255,.28);" data-es>Inglés y Español · EE.UU. y LATAM</div></div></div><div class="footer-bottom"><span class="footer-copy">© 2026 FreeLAN. <span data-en>All rights reserved.</span><span data-es>Todos los derechos reservados.</span></span><span style="font-size:12px;color:rgba(255,255,255,.25);">🇺🇸 EN · 🌎 ES</span></div></footer>
+
+<!-- STICKY PHONE/WHATSAPP -->
+<div class="sticky-phone"><a href="tel:+19454008937" class="sticky-btn sticky-call">📞 <span class="sticky-lbl">Call Now</span></a><a href="https://wa.me/19454008937?text=Hi!%20I%20need%20help%20with%20marketing" target="_blank" class="sticky-btn sticky-wa">💬 <span class="sticky-lbl">WhatsApp</span></a></div>
+
+<script>
+// LANGUAGE SWITCHER
+let lang = 'en';
+function setLang(l) {
+  lang = l;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent.trim().toLowerCase() === l));
+  document.querySelectorAll('[data-en]').forEach(el => el.style.display = (l==='en') ? '' : 'none');
+  document.querySelectorAll('[data-es]').forEach(el => el.style.display = (l==='es') ? '' : 'none');
+  const msgEl = document.getElementById('langMsg');
+  if(msgEl) msgEl.innerHTML = (l==='en') ? '<strong>🌎 Serving businesses across the U.S. · English & Spanish</strong>' : '<strong>🌎 Atendemos negocios en EE.UU. · Inglés y Español</strong>';
+}
+setLang('en');
+
+// MOBILE MENU
+function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
+
+// SCROLL REVEAL
+const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// FORM SUBMIT (demo)
+function doSubmit() {
+  const msg = document.getElementById('successMsg');
+  msg.style.display = 'block';
+  setTimeout(() => { msg.style.display = 'none'; }, 6000);
+}
+function doSubmit2() {
+  const msg = document.getElementById('successMsg2');
+  msg.style.display = 'block';
+  setTimeout(() => { msg.style.display = 'none'; }, 6000);
+}
+</script>
+</body>
+</html>
