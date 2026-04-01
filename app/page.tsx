@@ -1,3 +1,5 @@
+"use client";
+
 import { LanguageProvider } from "@/components/language-context";
 import { LangBar } from "@/components/lang-bar";
 import { Navigation } from "@/components/navigation";
